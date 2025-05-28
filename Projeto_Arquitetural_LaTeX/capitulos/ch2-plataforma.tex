@@ -1,0 +1,81 @@
+% ==============================================================================
+% Projeto de Sistema - Nome do Aluno
+% Capítulo 2 - Plataforma de Desenvolvimento
+% ==============================================================================
+\chapter{Plataforma de Desenvolvimento}
+\label{sec-plataforma}
+\vspace{-1cm}
+
+
+%=======================================================================================================
+%			Tabela de Plataforma de Desenvolvimento e Tecnologias Utilizadas
+%=======================================================================================================
+
+Na Tabela~\ref{tabela-plataforma} são listadas as tecnologias utilizadas no desenvolvimento da ferramenta, bem como o propósito de sua utilização.
+
+\begin{footnotesize}
+\begin{longtable}{|p{1.8cm}|c|p{5cm}|p{6.3cm}|}
+	\caption{Plataforma de Desenvolvimento e Tecnologias Utilizadas.}	
+	\label{tabela-plataforma}\\\hline
+
+	\rowcolor{lightgray}
+	\textbf{Tecnologia} & \textbf{Versão} & \textbf{Descrição} & \textbf{Propósito} \\\hline 
+	\endfirsthead
+	\hline
+	\rowcolor{lightgray}
+	\textbf{Tecnologia} & \textbf{Versão} & \textbf{Descrição} & \textbf{Propósito} \\\hline 
+	\endhead	
+
+	Python & 3.12 & Linguagem de programação de alto nível, orientada a objetos, com tipagem dinâmica. & Escrita do código-fonte das classes que compõem o sistema. \\\hline
+	
+	Flask & 3.0 & Microframework para construção de aplicações Web. & Desenvolvimento de APIs RESTful e aplicações Web com arquitetura leve e extensível.  \\\hline  
+	
+	Jinja2 & 3.1 & 	Motor de templates integrado ao Flask. & Definição de templates HTML, promovendo a separação entre lógica de negócio e camada de apresentação. \\\hline
+	
+	SQLAlchemy & 2.0 & ORM (Object Relational Mapper) para persistência de dados em bancos relacionais. & Persistência dos objetos de domínio sem necessidade de escrita direta de comandos SQL. \\\hline
+	
+	Marshmallow & 3.20 & Biblioteca para serialização e validação de objetos. & Facilita a validação e transformação de objetos Python em formatos como JSON, e vice-versa. \\\hline
+	
+	Alembic & 1.12 &  Ferramenta de migração de banco de dados. & Controle e versionamento do esquema do banco de dados. \\\hline
+	
+	Gunicorn & 21.2 &  Servidor WSGI para aplicações Python. & Hospedagem e execução da aplicação Web, intermediando requisições HTTP e a aplicação Flask. \\\hline
+	
+	MySQL Server & 8.0 & Sistema Gerenciador de Banco de Dados Relacional gratuito. & Armazenamento dos dados manipulados pela ferramenta. \\\hline
+	
+	Docker & 26.0 & Plataforma para criação, execução e gerenciamento de containers. & Facilita o empacotamento e a distribuição do ambiente de desenvolvimento e produção da aplicação. \\\hline
+\end{longtable}
+\end{footnotesize}
+
+
+
+
+
+
+%=======================================================================================================
+%			Tabela de Softwares de Apoio ao Desenvolvimento do Projeto
+%=======================================================================================================
+
+Na Tabela~\ref{tabela-software} vemos os softwares que apoiaram o desenvolvimento de documentos e também do código fonte.
+
+\begin{footnotesize}
+\begin{longtable}{|p{2.5cm}|c|p{5cm}|p{5.5cm}|}
+	\caption{Softwares de Apoio ao Desenvolvimento do Projeto}	
+	\label{tabela-software}\\\hline
+	
+	\rowcolor{lightgray}
+	\textbf{Tecnologia} & \textbf{Versão} & \textbf{Descrição} & \textbf{Propósito} \\\hline 
+	\endfirsthead
+	\hline
+	\rowcolor{lightgray}
+	\textbf{Tecnologia} & \textbf{Versão} & \textbf{Descrição} & \textbf{Propósito} \\\hline 
+	\endhead
+	 
+	FrameWeb Plugin for Visual Paradigm & 1.0 & Extensão do Visual Paradigm que implementa o método FrameWeb. & Apoio na modelagem arquitetural e geração de artefatos conforme o método FrameWeb. \\\hline
+
+	Overleaf  & 5.4.1 & Editor online colaborativo de LaTeX. & Escrita colaborativa da documentação do sistema, utilizando o template abnTeX. \\\hline        
+
+	Visual Paradigm & 17.3 & Editor UML com suporte ao método FrameWeb via plug-in. & Criação dos modelos de Entidades, Aplicação, Persistência e Navegação conforme o método FrameWeb. \\\hline 
+	
+	Apache Maven & 3.5 & Ferramenta de gerência/construção de projetos de software. & Obtenção e integração das dependências do projeto. \\\hline
+\end{longtable}
+\end{footnotesize}
