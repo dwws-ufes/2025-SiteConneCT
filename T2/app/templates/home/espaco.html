@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Espaço ConneCT{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}">ConneCT</a>
+</nav>
+<style>
+    /* O seu 'base.html' já inclui a classe 'bg-light' no body,
+    que é um cinza claro e combina perfeitamente com o design da imagem.
+    Por isso, poucas customizações são necessárias.
+    */
+    .description-box {
+        background-color: white; /* Fundo branco para a caixa de descrição */
+    }
+
+    .gallery-card {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    
+    .gallery-card:hover {
+        transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+</style>
+
+<div class="container py-5">
+
+    <h1 class="text-center fw-bold mb-4">Espaço ConneCT</h1>
+
+    <div class="p-4 p-md-5 mb-5 rounded shadow-sm description-box animate__animated animate__fadeIn">
+        <p class="lead">
+            Nosso espaço fica no Centro Tecnológico da UFES, no campus Goiabeiras, no prédio CT 12, em frente ao LabPetro.
+        </p>
+        <p class="mb-0">
+            As instalações do ConneCT envolvem sala dos projetos, sala de ideação, o Lab Design, salas de reuniões, salas de treinamento e toda a infraestrutura do Centro Tecnológico com laboratórios de pesquisa e muito mais.
+        </p>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-4 col-md-6 mb-4 animate__animated animate__fadeInUp">
+            <div class="card shadow-sm h-100 gallery-card">
+                <img src="{{ url_for('static', filename='img/espaco1.png') }}" class="card-img-top" alt="Foto da sala de projetos do espaço ConneCT.">
+                
+                <div class="card-body text-center">
+                    <h5 class="card-title">Sala de projetos</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+            <div class="card shadow-sm h-100 gallery-card">
+                <img src="{{ url_for('static', filename='img/espaco2.png') }}" class="card-img-top" alt="Foto do LabDesign, a sala de ideação do ConneCT.">
+
+                <div class="card-body text-center">
+                    <h5 class="card-title">LabDesign</h5>
+                    <p class="card-text text-muted">Sala de ideação</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
+            <div class="card shadow-sm h-100 gallery-card">
+                <img src="{{ url_for('static', filename='img/espaco3.png') }}" class="card-img-top" alt="Foto da sala de reuniões do espaço ConneCT.">
+                
+                <div class="card-body text-center">
+                    <h5 class="card-title">Sala de reuniões</h5>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

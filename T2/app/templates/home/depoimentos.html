@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Depoimentos - ConneCT{% endblock %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}">ConneCT</a>
+</nav>
+<style>
+    .testimonials-section {
+        background-color: #f8f9fa; /* Um cinza um pouco mais claro que o padrão */
+    }
+
+    .testimonial-card {
+        border: none; /* Remove a borda padrão do card */
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+    .testimonial-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 0.8rem 1.5rem rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .testimonial-img-wrapper {
+        /* Puxa a imagem para cima para sobrepor o topo do card */
+        margin-top: -50px;
+    }
+
+    .testimonial-img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover; /* Garante que a foto não fique distorcida */
+        border: 4px solid white; /* Borda branca em volta da foto */
+        background-color: #e9ecef; /* Fundo para o ícone, caso a imagem falhe */
+    }
+
+    .testimonial-bar {
+        height: 5px;
+        width: 80%; /* Largura da barrinha amarela */
+        margin: 0 auto; /* Centraliza a barrinha */
+        background-color: #ffca2c; /* Cor amarela/dourada */
+        border-radius: 5px;
+    }
+</style>
+
+<div class="testimonials-section py-5">
+    <div class="container">
+
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-light text-secondary">Depoimentos de participantes</h1>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-6 mb-5">
+                <div class="card h-100 text-center shadow-sm testimonial-card animate__animated animate__zoomIn">
+                    
+                    <div class="testimonial-img-wrapper">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23adb5bd' class='bi bi-person-circle' viewBox='0 0 16 16'%3E%3Cpath d='M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z'/%3E%3Cpath fill-rule='evenodd' d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z'/%3E%3C/svg%3E" class="rounded-circle testimonial-img" alt="Foto genérica de participante">
+                    </div>
+
+                    <div class="card-body pt-4">
+                        <h5 class="card-title fw-bold">Alan</h5>
+                        <p class="card-subtitle mb-3 text-muted">Professora</p>
+                        <p class="card-text small">
+                            "O ConneCT estimula a realização de atividades que promovem a aproximação dos nossos estudantes com as necessidades do mercado de trabalho."
+                        </p>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent border-0 pb-4">
+                        <div class="testimonial-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 mb-5">
+                <div class="card h-100 text-center shadow-sm testimonial-card animate__animated animate__zoomIn" style="animation-delay: 0.1s;">
+                    
+                    <div class="testimonial-img-wrapper">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23adb5bd' class='bi bi-person-circle' viewBox='0 0 16 16'%3E%3Cpath d='M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z'/%3E%3Cpath fill-rule='evenodd' d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z'/%3E%3C/svg%3E" class="rounded-circle testimonial-img" alt="Foto genérica de participante">
+                    </div>
+
+                    <div class="card-body pt-4">
+                        <h5 class="card-title fw-bold">Eduardo</h5>
+                        <p class="card-subtitle mb-3 text-muted">Empresário</p>
+                        <p class="card-text small">
+                            "A MindWorks está entusiasmada em participar do ConneCT, pois acreditamos fortemente na importância da interação com a Academia. Reconhecemos o potencial excepcional da UFES e a alta qualidade de seus estudantes."
+                        </p>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent border-0 pb-4">
+                        <div class="testimonial-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 mb-5">
+                <div class="card h-100 text-center shadow-sm testimonial-card animate__animated animate__zoomIn" style="animation-delay: 0.2s;">
+                    
+                    <div class="testimonial-img-wrapper">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23adb5bd' class='bi bi-person-circle' viewBox='0 0 16 16'%3E%3Cpath d='M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z'/%3E%3Cpath fill-rule='evenodd' d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z'/%3E%3C/svg%3E" class="rounded-circle testimonial-img" alt="Foto genérica de participante">
+                    </div>
+
+                    <div class="card-body pt-4">
+                        <h5 class="card-title fw-bold">Guilherme</h5>
+                        <p class="card-subtitle mb-3 text-muted">Estudante</p>
+                        <p class="card-text small">
+                            "O ConneCT é um projeto notável que nos permite aprender novos métodos, ampliando nossas ideias inovadoras. Estou muito feliz em fazer parte da primeira equipe deste grande projeto."
+                        </p>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent border-0 pb-4">
+                        <div class="testimonial-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-6 mb-5">
+                <div class="card h-100 text-center shadow-sm testimonial-card animate__animated animate__zoomIn" style="animation-delay: 0.3s;">
+                    
+                    <div class="testimonial-img-wrapper">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23adb5bd' class='bi bi-person-circle' viewBox='0 0 16 16'%3E%3Cpath d='M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z'/%3E%3Cpath fill-rule='evenodd' d='M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z'/%3E%3C/svg%3E" class="rounded-circle testimonial-img" alt="Foto genérica de participante">
+                    </div>
+
+                    <div class="card-body pt-4">
+                        <h5 class="card-title fw-bold">Victor</h5>
+                        <p class="card-subtitle mb-3 text-muted">Estudante</p>
+                        <p class="card-text small">
+                            "Nosso espaço fica no Centro Tecnológico da UFES, no prédio CT 12, em frente ao LabPetro. Nossas instalações envolvem sala dos projetos do ConneCT, sala de ideação, o Lab Design, salas de reuniões..."
+                        </p>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent border-0 pb-4">
+                        <div class="testimonial-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

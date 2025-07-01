@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}">ConneCT</a>
+    </div>
+</nav>
+<div class="container mt-4">
+    <h2>Cursos</h2>
+    <a href="{{ url_for('main.new_curso') }}" class="btn btn-primary mb-3">Novo Curso</a>
+
+    {% if not cursos %}
+        <div class="alert alert-info">Nenhum curso criado ainda.</div>
+    {% else %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Data Início</th>
+                        <th>Data Fim</th>
+                        <th>Horário</th>
+                        <th>Carga Horária</th>
+                        <th>Local</th>
+                        <th>Vagas</th>
+                        <th>Inscritos</th>
+                        <th>Situação</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for curso in cursos %}
+                    <tr>
+                        <td>{{ curso.nome }}</td>
+                        <td>{{ curso.data_inicio.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ curso.data_fim.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ curso.horario }}</td>
+                        <td>{{ curso.carga_horaria }}</td>
+                        <td>{{ curso.local }}</td>
+                        <td>{{ curso.vagas_disponiveis }}</td>
+                        <td>
+                            {{ curso.participantes.count() }} / {{ curso.vagas_disponiveis }}
+                            {% if curso.vagas_disponiveis > 0 %}
+                                {% set progresso = (curso.participantes.count() / curso.vagas_disponiveis * 100) | round(0) %}
+                                <div class="progress mt-1" style="height: 5px;">
+                                    <div class="progress-bar bg-{{ 'success' if curso.participantes.count() < curso.vagas_disponiveis else 'danger' }}" 
+                                         role="progressbar" 
+                                         style="width: {{ progresso ~ '%' }}">
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="badge bg-{{ 'success' if curso.situacao.value == 'ABERTO' else 'danger' if curso.situacao.value == 'CANCELADO' else 'info' }}">
+                                {{ curso.situacao.value }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1">
+                                <a href="{{ url_for('main.edit_curso', id=curso.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="{{ url_for('main.ver_inscritos_curso', curso_id=curso.id) }}" class="btn btn-sm btn-info">Inscritos</a>
+                                <form action="{{ url_for('main.delete_curso', id=curso.id) }}" method="POST" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-danger" 
+                                            onclick="return confirm('Tem certeza que deseja excluir este curso?')">
+                                        Excluir
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

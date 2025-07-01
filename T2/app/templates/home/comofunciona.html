@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}Como Funciona - ConneCT{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}">ConneCT</a>
+</nav>
+<style>
+    /* Estilos específicos para esta página */
+    body {
+        /* Gradiente de fundo escuro, semelhante à imagem */
+        background: linear-gradient(135deg, #1e2a52 0%, #291a3d 100%);
+        color: white;
+    }
+
+    .main-section-funciona {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+
+    /* Estilo para cada item do passo a passo */
+    .step-item {
+        /* Usando flexbox para alinhar ícone, número e texto */
+        display: flex;
+        align-items: center; /* Centraliza verticalmente */
+        margin-bottom: 3.5rem; /* Espaçamento entre os itens */
+    }
+
+    .step-item i {
+        /* Cor azulada para os ícones, como na imagem */
+        color: #82c9ff; 
+        font-size: 2.5rem; /* Tamanho do ícone */
+    }
+
+    .step-item .step-number {
+        font-size: 3rem; /* Tamanho do número */
+        font-weight: 700; /* Negrito */
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .step-item .step-text {
+        font-size: 1.1rem;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.85);
+    }
+    
+    /* Ajustes para telas menores (celulares) */
+    @media (max-width: 991.98px) {
+        .main-section-funciona {
+            padding-top: 3rem;
+            padding-bottom: 1rem;
+        }
+        .step-item {
+            margin-bottom: 2.5rem;
+        }
+        h1.page-title {
+            font-size: 2.2rem; /* Diminui o título principal */
+        }
+    }
+
+</style>
+
+<div class="main-section-funciona">
+    <div class="container">
+        
+        <h1 class="display-4 fw-bold text-center mb-5 page-title animate__animated animate__fadeInDown">Como funciona o ConneCT?</h1>
+
+        <div class="row">
+            <div class="col-lg-6">
+                
+                <div class="step-item animate__animated animate__fadeInLeft">
+                    <i class="bi bi-printer me-4"></i>
+                    <div>
+                        <p class="mb-0">
+                            <strong class="step-number me-3">1</strong>
+                            <span class="step-text">A empresa traz o desafio para o ConneCT. Nós divulgamos aos estudantes e Professores</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step-item animate__animated animate__fadeInLeft" style="animation-delay: 0.2s;">
+                    <i class="bi bi-people-fill me-4"></i>
+                    <div>
+                        <p class="mb-0">
+                            <strong class="step-number me-3">2</strong>
+                            <span class="step-text">São organizados times que apresentam propostas de planos de trabalho</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step-item animate__animated animate__fadeInLeft" style="animation-delay: 0.4s;">
+                    <i class="bi bi-clipboard2-check-fill me-4"></i>
+                    <div>
+                        <p class="mb-0">
+                            <strong class="step-number me-3">3</strong>
+                            <span class="step-text">Apresentamos as propostas às empresas que analisam e fazem a aprovação</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="step-item animate__animated animate__fadeInRight">
+                    <i class="bi bi-pc-display-horizontal me-4"></i>
+                    <div>
+                        <p class="mb-0">
+                            <strong class="step-number me-3">4</strong>
+                            <span class="step-text">A empresa assina o Termo de Cooperação. O projeto é desenvolvido pelo time</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step-item animate__animated animate__fadeInRight" style="animation-delay: 0.2s;">
+                    <i class="bi bi-headset me-4"></i>
+                    <div>
+                        <p class="mb-0">
+                            <strong class="step-number me-3">5</strong>
+                            <span class="step-text">É feita a gestão do projeto com relatórios periódicos</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step-item animate__animated animate__fadeInRight" style="animation-delay: 0.4s;">
+                    <i class="bi bi-trophy-fill me-4"></i>
+                    <div>
+                        <p class="mb-0">
+                            <strong class="step-number me-3">6</strong>
+                            <span class="step-text">Entrega final dos resultados do projeto</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Inscritos no Curso: {{ curso.nome }}</h2>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <p><strong>Período:</strong> {{ curso.data_inicio.strftime('%d/%m/%Y') }} a {{ curso.data_fim.strftime('%d/%m/%Y') }}</p>
+            <p><strong>Horário:</strong> {{ curso.horario }}</p>
+            <p><strong>Local:</strong> {{ curso.local }}</p>
+            <p><strong>Total de Inscritos:</strong> {{ participantes|length }} / {{ curso.vagas_disponiveis }}</p>
+        </div>
+    </div>
+
+    {% if participantes %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>CPF</th>
+                        <th>Celular</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for participante in participantes %}
+                    <tr>
+                        <td>{{ participante.name }}</td>
+                        <td>{{ participante.email }}</td>
+                        <td>{{ participante.cpf }}</td>
+                        <td>{{ participante.celular }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">Nenhum inscrito neste curso.</div>
+    {% endif %}
+
+    <a href="{{ url_for('main.list_cursos') }}" class="btn btn-secondary mt-3">Voltar</a>
+</div>
+{% endblock %}

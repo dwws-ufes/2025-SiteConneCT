@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Quem Somos - ConnecT{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}">ConneCT</a>
+</nav>
+<style>
+    /* Estilos específicos para esta página */
+    body {
+        background-color: #282828; /* Fundo cinza escuro */
+        color: black; /* Cor do texto padrão para branco */
+    }
+
+    /* Container para garantir que o conteúdo ocupe a altura da tela */
+    .main-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 85vh; /* Altura mínima para centralizar verticalmente */
+    }
+
+    /* Container da imagem com posicionamento relativo para o efeito de gradiente */
+    .image-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* O efeito de gradiente colorido e desfocado */
+    .gradient-visual {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 80% 40%, 
+            rgba(46, 84, 255, 0.7),   /* Azul */
+            rgba(168, 50, 255, 0.6),  /* Roxo */
+            rgba(255, 153, 51, 0.5)   /* Laranja */
+        );
+        filter: blur(100px); /* Aumenta o desfoque para um efeito suave */
+        opacity: 0.8;
+        transform: scale(1.1); /* Aumenta um pouco para não ter bordas nítidas */
+        z-index: 1; /* Coloca o gradiente atrás da imagem */
+    }
+
+    /* Garante que a imagem fique sobre o efeito de gradiente */
+    .image-container img {
+        position: relative;
+        z-index: 2; /* Posição da imagem na frente do gradiente */
+        max-width: 100%;
+    }
+
+    /* Ajustes para telas menores (celulares) */
+    @media (max-width: 991.98px) {
+        .main-section {
+            min-height: auto; /* Remove a altura mínima */
+            text-align: center; /* Centraliza o texto */
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        .text-content {
+            margin-bottom: 3rem; /* Espaço entre o texto e a imagem */
+        }
+        h1 {
+            font-size: 2.5rem; /* Diminui um pouco o título no mobile */
+        }
+    }
+
+</style>
+
+<div class="main-section">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <div class="col-lg-6 text-content">
+                <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInLeft">Quem somos</h1>
+                <p class="fs-5 mb-3 animate__animated animate__fadeInLeft animate__delay-1s">
+                    ConnecT é um projeto de extensão do Centro Tecnológico da UFES, com apoio da Fest, que conecta desafios empresariais a soluções inovadoras, desenvolvidas por estudantes com mentoria de Professores.
+                </p>
+                <p class="fs-5 animate__animated animate__fadeInLeft animate__delay-1s">
+                    Possui metodologia própria e espaço físico projetado para promover colaboração ativa de Estudantes, Professores e Empresas para desenvolver projetos inovadores.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div class="image-container animate__animated animate__fadeInRight">
+                    <div class="gradient-visual"></div>
+                    
+                    <img src="https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid rounded shadow-lg" alt="Ilustração de um livro aberto com engrenagens e elementos tecnológicos saindo dele, representando inovação e conhecimento.">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

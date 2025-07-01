@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Projetos{% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}">ConneCT</a>
+</nav>
+<div class="container py-5">
+  <h2 class="mb-4 text-center">Projetos</h2>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Smart Bin — Classificação de resíduos por som</li>
+    <li class="list-group-item">Mobilidade UFES — Rotas otimizadas no campus</li>
+  </ul>
+  <div class="text-center mt-4">
+    <a href="{{ url_for('main.index') }}" class="btn btn-primary">Voltar à página inicial</a>
+  </div>
+</div>
+{% endblock %}

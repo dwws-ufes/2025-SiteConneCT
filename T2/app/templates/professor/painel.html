@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}">ConneCT</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Painel do Professor</h2>
+
+    <!-- Abas de navegação -->
+    <ul class="nav nav-tabs" id="painelTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="disponiveis-tab" data-bs-toggle="tab" data-bs-target="#disponiveis" type="button" role="tab" aria-controls="disponiveis" aria-selected="true">
+                Atividades Disponíveis
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="inscritos-tab" data-bs-toggle="tab" data-bs-target="#inscritos" type="button" role="tab" aria-controls="inscritos" aria-selected="false">
+                Minhas Inscrições
+            </button>
+        </li>
+    </ul>
+
+    <!-- Conteúdo das abas -->
+    <div class="tab-content" id="painelTabsContent">
+        <!-- Atividades Disponíveis -->
+        <div class="tab-pane fade show active" id="disponiveis" role="tabpanel" aria-labelledby="disponiveis-tab">
+            <div class="mt-4">
+                <!-- Cursos -->
+                <h4>Cursos</h4>
+                {% if cursos_disponiveis %}
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        {% for curso in cursos_disponiveis %}
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ curso.nome }}</h5>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            {{ curso.data_inicio.strftime('%d/%m/%Y') }} - {{ curso.data_fim.strftime('%d/%m/%Y') }}
+                                        </small>
+                                    </p>
+                                    <p class="card-text">{{ curso.descricao[:100] }}{% if curso.descricao|length > 100 %}...{% endif %}</p>
+                                </div>
+                                <div class="card-footer bg-white">
+                                    <form action="{{ url_for('main.inscrever_curso', curso_id=curso.id) }}" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-primary btn-sm">Inscrever-se</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">Nenhum curso disponível no momento.</div>
+                {% endif %}
+
+                <!-- Visitas -->
+                <h4 class="mt-5">Visitas Técnicas</h4>
+                {% if visitas_disponiveis %}
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        {% for visita in visitas_disponiveis %}
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ visita.nome }}</h5>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            {{ visita.data.strftime('%d/%m/%Y') }} às {{ visita.horario.strftime('%H:%M') }}
+                                        </small>
+                                    </p>
+                                    <p class="card-text">{{ visita.descricao[:100] }}{% if visita.descricao|length > 100 %}...{% endif %}</p>
+                                </div>
+                                <div class="card-footer bg-white">
+                                    <form action="{{ url_for('main.inscrever_visita', visita_id=visita.id) }}" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-primary btn-sm">Inscrever-se</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">Nenhuma visita disponível no momento.</div>
+                {% endif %}
+
+                <!-- Workshops -->
+                <h4 class="mt-5">Workshops</h4>
+                {% if workshops_disponiveis %}
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        {% for workshop in workshops_disponiveis %}
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ workshop.nome }}</h5>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            {{ workshop.data.strftime('%d/%m/%Y') }} às {{ workshop.horario }}
+                                        </small>
+                                    </p>
+                                    <p class="card-text">{{ workshop.descricao[:100] }}{% if workshop.descricao|length > 100 %}...{% endif %}</p>
+                                </div>
+                                <div class="card-footer bg-white">
+                                    <form action="{{ url_for('main.inscrever_workshop', workshop_id=workshop.id) }}" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-primary btn-sm">Inscrever-se</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">Nenhum workshop disponível no momento.</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Minhas Inscrições -->
+        <div class="tab-pane fade" id="inscritos" role="tabpanel" aria-labelledby="inscritos-tab">
+            <div class="mt-4">
+                <!-- Cursos -->
+                <h4>Meus Cursos</h4>
+                {% if cursos_inscritos %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Curso</th>
+                                    <th>Período</th>
+                                    <th>Situação</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for curso in cursos_inscritos %}
+                                <tr>
+                                    <td>{{ curso.nome }}</td>
+                                    <td>
+                                        {{ curso.data_inicio.strftime('%d/%m/%Y') }} - 
+                                        {{ curso.data_fim.strftime('%d/%m/%Y') }}
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-{{ 'success' if curso.situacao == 'ABERTO' else 'secondary' }}">
+                                            {{ curso.situacao.value }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <form action="{{ url_for('main.cancelar_inscricao_curso', curso_id=curso.id) }}" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-danger" 
+                                                    onclick="return confirm('Tem certeza que deseja cancelar esta inscrição?')">
+                                                Cancelar
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">Você não está inscrito em nenhum curso.</div>
+                {% endif %}
+
+                <!-- Visitas -->
+                <h4 class="mt-5">Minhas Visitas</h4>
+                {% if visitas_inscritas %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Visita</th>
+                                    <th>Data</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for visita in visitas_inscritas %}
+                                <tr>
+                                    <td>{{ visita.nome }}</td>
+                                    <td>{{ visita.data.strftime('%d/%m/%Y') }} às {{ visita.horario.strftime('%H:%M') }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ 'success' if visita.status == 'CONFIRMADA' else 'warning' }}">
+                                            {{ visita.status.value }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <form action="{{ url_for('main.cancelar_inscricao_visita', visita_id=visita.id) }}" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-danger" 
+                                                    onclick="return confirm('Tem certeza que deseja cancelar esta inscrição?')">
+                                                Cancelar
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">Você não está inscrito em nenhuma visita.</div>
+                {% endif %}
+
+                <!-- Workshops -->
+                <h4 class="mt-5">Meus Workshops</h4>
+                {% if workshops_inscritos %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Workshop</th>
+                                    <th>Data</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for workshop in workshops_inscritos %}
+                                <tr>
+                                    <td>{{ workshop.nome }}</td>
+                                    <td>{{ workshop.data.strftime('%d/%m/%Y') }} às {{ workshop.horario }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ 'success' if workshop.status == 'ABERTO' else 'warning' }}">
+                                            {{ workshop.status.value }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <form action="{{ url_for('main.cancelar_inscricao_workshop', workshop_id=workshop.id) }}" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-danger" 
+                                                    onclick="return confirm('Tem certeza que deseja cancelar esta inscrição?')">
+                                                Cancelar
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">Você não está inscrito em nenhum workshop.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var tabElms = document.querySelectorAll('button[data-bs-toggle="tab"]');
+    tabElms.forEach(function(tabEl) {
+        tabEl.addEventListener('click', function (e) {
+            e.preventDefault();
+            var tab = new bootstrap.Tab(tabEl);
+            tab.show();
+        });
+    });
+});
+</script>
+{% endblock %}

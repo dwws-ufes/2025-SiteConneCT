@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{% if workshop %}Editar{% else %}Novo{% endif %} Workshop</h2>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form method="POST">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome*</label>
+            <input type="text" class="form-control" id="nome" name="nome" 
+                   value="{{ workshop.nome if workshop }}" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <textarea class="form-control" id="descricao" name="descricao" rows="3">{{ workshop.descricao if workshop }}</textarea>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="data" class="form-label">Data*</label>
+                <input type="date" class="form-control" id="data" name="data" 
+                       value="{{ workshop.data.strftime('%Y-%m-%d') if workshop else '' }}" required>
+            </div>
+            <div class="col-md-4">
+                <label for="horario" class="form-label">Horário*</label>
+                <input type="text" class="form-control" id="horario" name="horario" 
+                       value="{{ workshop.horario if workshop }}" placeholder="Ex: 14h às 18h" required>
+            </div>
+            <div class="col-md-4">
+                <label for="duracao" class="form-label">Duração*</label>
+                <input type="text" class="form-control" id="duracao" name="duracao" 
+                       value="{{ workshop.duracao if workshop }}" placeholder="Ex: 4 horas" required>
+            </div>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="local" class="form-label">Local*</label>
+                <input type="text" class="form-control" id="local" name="local" 
+                       value="{{ workshop.local if workshop }}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="vagas_disponiveis" class="form-label">Vagas Disponíveis*</label>
+                <input type="number" class="form-control" id="vagas_disponiveis" name="vagas_disponiveis" 
+                       value="{{ workshop.vagas_disponiveis if workshop else 20 }}" min="1" required>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="status" class="form-label">Status*</label>
+            <select class="form-select" id="status" name="status" required>
+                {% for status in status_options %}
+                    <option value="{{ status }}" {% if workshop and status == workshop.status.value %}selected{% endif %}>
+                        {{ status }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{{ url_for('main.list_workshops') }}" class="btn btn-secondary me-md-2">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

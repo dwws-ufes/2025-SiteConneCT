@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}ConneCT{% endblock %}
+{% block content %}
+
+<!-- Menu -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">ConneCT</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.quemsomos') }}">Quem somos?</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.comofunciona') }}">Como funciona?</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.projetos') }}">Projetos</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.depoimentos') }}">Depoimentos</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.desafios') }}">Desafios</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('main.espaco') }}">Espaço ConneCT</a></li>
+        {% if not user %}
+        <li class="nav-item"><a class="nav-link btn btn-outline-primary ms-2" href="{{ url_for('main.login') }}">Login</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Cabeçalho -->
+<section class="container text-center mb-5 animate__animated animate__fadeIn">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <img src="{{ url_for('static', filename='img/banner.png') }}" class="img-fluid rounded shadow-lg mt-3" alt="Banner">
+    </div>
+  </div>
+</section>
+
+<!-- Rodapé -->
+<footer class="bg-light text-center py-4 mt-5 border-top">
+  <div class="container">
+    <h5 class="mb-3">Empresas Parceiras</h5>
+    <div class="row justify-content-center mb-3">
+      <div class="col-auto">
+        <img src="{{ url_for('static', filename='img/empresa1.png') }}" alt="Empresa 1" style="height: 50px;">
+      </div>
+      <div class="col-auto">
+        <img src="{{ url_for('static', filename='img/empresa2.jpeg') }}" alt="Empresa 2" style="height: 50px;">
+      </div>
+      <div class="col-auto">
+        <img src="{{ url_for('static', filename='img/empresa3.png') }}" alt="Empresa 3" style="height: 50px;">
+      </div>
+    </div>
+    <p class="text-muted small">Contato: contato@connect.ufes.br | Tel: (27) 4002-8922</p>
+  </div>
+</footer>
+
+{% endblock %}

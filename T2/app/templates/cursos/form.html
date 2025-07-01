@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{% if curso %}Editar{% else %}Novo{% endif %} Curso</h2>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form method="POST">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome*</label>
+            <input type="text" class="form-control" id="nome" name="nome" 
+                   value="{{ curso.nome if curso }}" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <textarea class="form-control" id="descricao" name="descricao" rows="3">{{ curso.descricao if curso }}</textarea>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label for="data_inicio" class="form-label">Data Início*</label>
+                <input type="date" class="form-control" id="data_inicio" name="data_inicio" 
+                       value="{{ curso.data_inicio.strftime('%Y-%m-%d') if curso else '' }}" required>
+            </div>
+            <div class="col-md-4">
+                <label for="data_fim" class="form-label">Data Fim*</label>
+                <input type="date" class="form-control" id="data_fim" name="data_fim" 
+                       value="{{ curso.data_fim.strftime('%Y-%m-%d') if curso else '' }}" required>
+            </div>
+            <div class="col-md-4">
+                <label for="horario" class="form-label">Horário*</label>
+                <input type="text" class="form-control" id="horario" name="horario" 
+                       value="{{ curso.horario if curso }}" placeholder="Ex: 14h às 18h" required>
+            </div>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="carga_horaria" class="form-label">Carga Horária*</label>
+                <input type="text" class="form-control" id="carga_horaria" name="carga_horaria" 
+                       value="{{ curso.carga_horaria if curso }}" placeholder="Ex: 40 horas" required>
+            </div>
+            <div class="col-md-6">
+                <label for="local" class="form-label">Local*</label>
+                <input type="text" class="form-control" id="local" name="local" 
+                       value="{{ curso.local if curso }}" required>
+            </div>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="vagas_disponiveis" class="form-label">Vagas Disponíveis*</label>
+                <input type="number" class="form-control" id="vagas_disponiveis" name="vagas_disponiveis" 
+                       value="{{ curso.vagas_disponiveis if curso else 20 }}" min="1" required>
+            </div>
+            <div class="col-md-6">
+                <label for="situacao" class="form-label">Situação*</label>
+                <select class="form-select" id="situacao" name="situacao" required>
+                    {% for situacao in situacao_options %}
+                        <option value="{{ situacao }}" {% if curso and situacao == curso.situacao.value %}selected{% endif %}>
+                            {{ situacao }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{{ url_for('main.list_cursos') }}" class="btn btn-secondary me-md-2">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
