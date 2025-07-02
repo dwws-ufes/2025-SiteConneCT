@@ -1,7 +1,7 @@
 # 2025-SiteConneCT
 Assignment for the 2025 edition of the "Web Development and the Semantic Web" course, by Alan Medina Wehbe, Eduardo Marchese Perim, Guilherme Dayrell Cruz Soares and Victor Soares Setubal Wingler Lucas.
 
-#Como rodar a primeira vez:
+## Como rodar a primeira vez:
 
 ```bash
 python3 -m venv venv
