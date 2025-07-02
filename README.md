@@ -14,3 +14,8 @@ flask db-upgrade
 python install.py
 python run.py 
 ```
+## Para rodar somente o servidor das próximas vezes:
+
+```bash
+python run.py 
+```
