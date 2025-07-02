@@ -17,5 +17,6 @@ python run.py
 ## Para rodar somente o servidor das próximas vezes:
 
 ```bash
+source venv/bin/activate
 python run.py 
 ```
