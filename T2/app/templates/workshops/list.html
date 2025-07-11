@@ -8,7 +8,7 @@
 </nav>
 <div class="container mt-4">
     <h2>Workshops</h2>
-    <a href="{{ url_for('main.new_workshop') }}" class="btn btn-primary mb-3">Novo Workshop</a>
+    <a href="{{ url_for('admin.new_workshop') }}" class="btn btn-primary mb-3">Novo Workshop</a>
 
     {% if not workshops %}
         <div class="alert alert-info">Nenhum workshop criado ainda.</div>
@@ -56,9 +56,9 @@
                         </td>
                         <td>
                             <div class="d-flex gap-1">
-                                <a href="{{ url_for('main.edit_workshop', id=workshop.id) }}" class="btn btn-sm btn-warning">Editar</a>
-                                <a href="{{ url_for('main.ver_inscritos_workshop', workshop_id=workshop.id) }}" class="btn btn-sm btn-info">Inscritos</a>
-                                <form action="{{ url_for('main.delete_workshop', id=workshop.id) }}" method="POST" class="d-inline">
+                                <a href="{{ url_for('admin.edit_workshop', id=workshop.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="{{ url_for('admin.ver_inscritos_workshop', workshop_id=workshop.id) }}" class="btn btn-sm btn-info">Inscritos</a>
+                                <form action="{{ url_for('admin.delete_workshop', id=workshop.id) }}" method="POST" class="d-inline">
                                     <button type="submit" class="btn btn-sm btn-danger" 
                                             onclick="return confirm('Tem certeza que deseja excluir este workshop?')">
                                         Excluir

@@ -45,7 +45,7 @@
                                     <p class="card-text">{{ curso.descricao[:100] }}{% if curso.descricao|length > 100 %}...{% endif %}</p>
                                 </div>
                                 <div class="card-footer bg-white">
-                                    <form action="{{ url_for('main.inscrever_curso', curso_id=curso.id) }}" method="POST" class="d-inline">
+                                    <form action="{{ url_for('user.inscrever_curso', curso_id=curso.id) }}" method="POST" class="d-inline">
                                         <button type="submit" class="btn btn-primary btn-sm">Inscrever-se</button>
                                     </form>
                                 </div>
@@ -74,7 +74,7 @@
                                     <p class="card-text">{{ visita.descricao[:100] }}{% if visita.descricao|length > 100 %}...{% endif %}</p>
                                 </div>
                                 <div class="card-footer bg-white">
-                                    <form action="{{ url_for('main.inscrever_visita', visita_id=visita.id) }}" method="POST" class="d-inline">
+                                    <form action="{{ url_for('user.inscrever_visita', visita_id=visita.id) }}" method="POST" class="d-inline">
                                         <button type="submit" class="btn btn-primary btn-sm">Inscrever-se</button>
                                     </form>
                                 </div>
@@ -103,7 +103,7 @@
                                     <p class="card-text">{{ workshop.descricao[:100] }}{% if workshop.descricao|length > 100 %}...{% endif %}</p>
                                 </div>
                                 <div class="card-footer bg-white">
-                                    <form action="{{ url_for('main.inscrever_workshop', workshop_id=workshop.id) }}" method="POST" class="d-inline">
+                                    <form action="{{ url_for('user.inscrever_workshop', workshop_id=workshop.id) }}" method="POST" class="d-inline">
                                         <button type="submit" class="btn btn-primary btn-sm">Inscrever-se</button>
                                     </form>
                                 </div>
@@ -147,7 +147,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <form action="{{ url_for('main.cancelar_inscricao_curso', curso_id=curso.id) }}" method="POST" class="d-inline">
+                                        <form action="{{ url_for('user.cancelar_inscricao_curso', curso_id=curso.id) }}" method="POST" class="d-inline">
                                             <button type="submit" class="btn btn-sm btn-danger" 
                                                     onclick="return confirm('Tem certeza que deseja cancelar esta inscrição?')">
                                                 Cancelar
@@ -187,7 +187,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <form action="{{ url_for('main.cancelar_inscricao_visita', visita_id=visita.id) }}" method="POST" class="d-inline">
+                                        <form action="{{ url_for('user.cancelar_inscricao_visita', visita_id=visita.id) }}" method="POST" class="d-inline">
                                             <button type="submit" class="btn btn-sm btn-danger" 
                                                     onclick="return confirm('Tem certeza que deseja cancelar esta inscrição?')">
                                                 Cancelar
@@ -227,7 +227,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <form action="{{ url_for('main.cancelar_inscricao_workshop', workshop_id=workshop.id) }}" method="POST" class="d-inline">
+                                        <form action="{{ url_for('user.cancelar_inscricao_workshop', workshop_id=workshop.id) }}" method="POST" class="d-inline">
                                             <button type="submit" class="btn btn-sm btn-danger" 
                                                     onclick="return confirm('Tem certeza que deseja cancelar esta inscrição?')">
                                                 Cancelar

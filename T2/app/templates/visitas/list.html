@@ -8,7 +8,7 @@
 </nav>
 <div class="container mt-4">
     <h2>Visitas</h2>
-    <a href="{{ url_for('main.new_visita') }}" class="btn btn-primary mb-3">Nova Visita</a>
+    <a href="{{ url_for('admin.new_visita') }}" class="btn btn-primary mb-3">Nova Visita</a>
 
     {% if not visitas %}
         <div class="alert alert-info">Nenhuma visita criada ainda.</div>
@@ -52,9 +52,9 @@
                         </td>
                         <td>
                             <div class="d-flex gap-1">
-                                <a href="{{ url_for('main.edit_visita', id=visita.id) }}" class="btn btn-sm btn-warning">Editar</a>
-                                <a href="{{ url_for('main.ver_inscritos', visita_id=visita.id) }}" class="btn btn-sm btn-info">Inscritos</a>
-                                <form action="{{ url_for('main.delete_visita', id=visita.id) }}" method="POST" class="d-inline">
+                                <a href="{{ url_for('admin.edit_visita', id=visita.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="{{ url_for('admin.ver_inscritos', visita_id=visita.id) }}" class="btn btn-sm btn-info">Inscritos</a>
+                                <form action="{{ url_for('admin.delete_visita', id=visita.id) }}" method="POST" class="d-inline">
                                     <button type="submit" class="btn btn-sm btn-danger" 
                                             onclick="return confirm('Tem certeza que deseja excluir esta visita?')">
                                         Excluir

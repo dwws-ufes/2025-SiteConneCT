@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/home/victor/Programas em Python/Lab Web 01/venv/bin/python" "$0" "$@"
+'''exec' "/home/victor/Programas em Python/2025-SiteConneCT/T2/venv/bin/python" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re
