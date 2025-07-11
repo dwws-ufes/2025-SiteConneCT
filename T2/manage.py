@@ -6,7 +6,10 @@ import click
 app = create_app()
 migrate = Migrate(app, db)
 
+<<<<<<< HEAD
 # Comandos personalizados atualizados
+=======
+>>>>>>> 8e478d7ad4ba7b5f7ba993a30ee57d6a48b4935e
 @app.cli.command("db-init")
 def db_init():
     """Inicializa a pasta de migração"""
