@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{% if apresentacao %}Editar{% else %}Nova{% endif %} Apresentação</h2>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form method="POST">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome*</label>
+            <input type="text" class="form-control" id="nome" name="nome" 
+                   value="{{ apresentacao.nome if apresentacao }}" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <textarea class="form-control" id="descricao" name="descricao" rows="3">{{ apresentacao.descricao if apresentacao }}</textarea>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="data" class="form-label">Data*</label>
+                <input type="date" class="form-control" id="data" name="data" 
+                       value="{{ apresentacao.data.strftime('%Y-%m-%d') if apresentacao else '' }}" required>
+            </div>
+            <div class="col-md-6">
+                <label for="horario" class="form-label">Horário*</label>
+                <input type="time" class="form-control" id="horario" name="horario" 
+                       value="{{ apresentacao.horario.strftime('%H:%M') if apresentacao else '' }}" required>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="link_inscricao" class="form-label">Link de Inscrição*</label>
+            <input type="url" class="form-control" id="link_inscricao" name="link_inscricao" 
+                   value="{{ apresentacao.link_inscricao if apresentacao }}" required>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="vagas_disponiveis" class="form-label">Vagas Disponíveis*</label>
+                <input type="number" class="form-control" id="vagas_disponiveis" name="vagas_disponiveis" 
+                       value="{{ apresentacao.vagas_disponiveis if apresentacao else 20 }}" min="1" required>
+            </div>
+            <div class="col-md-6">
+                <label for="status" class="form-label">Status*</label>
+                <select class="form-select" id="status" name="status" required>
+                    {% for status in status_options %}
+                        <option value="{{ status }}" {% if apresentacao and status == apresentacao.status.value %}selected{% endif %}>
+                            {{ status }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href="{{ url_for('admin.list_apresentacoes') }}" class="btn btn-secondary me-md-2">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

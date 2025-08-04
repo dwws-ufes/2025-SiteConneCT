@@ -1,7 +1,7 @@
 from .. import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from .associacoes import (visita_inscricao, curso_inscricao, workshop_inscricao)
+from .associacoes import (visita_inscricao, curso_inscricao, workshop_inscricao, apresentacao_inscricao)
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -38,6 +38,12 @@ class User(db.Model):
     workshops_inscritos = db.relationship(
         'Workshop',
         secondary=workshop_inscricao,
+        backref=db.backref('participantes', lazy='dynamic')
+    )
+
+    apresentacoes_inscritas = db.relationship(
+        'Apresentacao',
+        secondary=apresentacao_inscricao,
         backref=db.backref('participantes', lazy='dynamic')
     )
 

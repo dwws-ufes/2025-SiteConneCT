@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light navbar-connect-gray shadow-sm sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for('main.index') }}">
+        <img src="{{ url_for('static', filename='img/logo_connect.png') }}" alt="Logo ConneCT" height="40">
+      </a> 
+</nav>
+<div class="container mt-4">
+    <h2>Apresentações</h2>
+    <a href="{{ url_for('admin.new_apresentacao') }}" class="btn btn-primary mb-3">Nova Apresentação</a>
+
+    {% if not apresentacoes %}
+        <div class="alert alert-info">Nenhuma apresentação criada ainda.</div>
+    {% else %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Data</th>
+                        <th>Horário</th>
+                        <th>Vagas</th>
+                        <th>Inscritos</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for apresentacao in apresentacoes %}
+                    <tr>
+                        <td>{{ apresentacao.nome }}</td>
+                        <td>{{ apresentacao.data.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ apresentacao.horario.strftime('%H:%M') }}</td>
+                        <td>{{ apresentacao.vagas_disponiveis }}</td>
+                        <td>
+                            {{ apresentacao.participantes.count() }} / {{ apresentacao.vagas_disponiveis }}
+                            {% if apresentacao.vagas_disponiveis > 0 %}
+                                {% set progresso = (apresentacao.participantes.count() / apresentacao.vagas_disponiveis * 100) | round(0) %}
+                                <div class="progress mt-1" style="height: 5px;">
+                                    <div class="progress-bar bg-{{ 'success' if apresentacao.participantes.count() < apresentacao.vagas_disponiveis else 'danger' }}" 
+                                         role="progressbar" 
+                                         style="width: {{ progresso ~ '%' }}">
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="badge bg-{{ 'success' if apresentacao.status.value == 'CONFIRMADA' else 'danger' if apresentacao.status.value == 'CANCELADA' else 'info' }}">
+                                {{ apresentacao.status.value }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1">
+                                <a href="{{ url_for('admin.edit_apresentacao', id=apresentacao.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="{{ url_for('admin.ver_inscritos_apresentacao', apresentacao_id=apresentacao.id) }}" class="btn btn-sm btn-info">Inscritos</a>
+                                <form action="{{ url_for('admin.delete_apresentacao', id=apresentacao.id) }}" method="POST" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-danger" 
+                                            onclick="return confirm('Tem certeza que deseja excluir esta apresentação?')">
+                                        Excluir
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

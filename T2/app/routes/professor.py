@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session
 from app.models import Professor
-from app.models.atividade import Curso, Visita, Workshop
+from app.models.atividade import Curso, Visita, Workshop, Apresentacao
 from ..auth.decorators import login_required, professor_required
 
 professor_bp = Blueprint('professor', __name__)
@@ -27,18 +27,26 @@ def painel_professor():
         Workshop.status == 'ABERTO',
         ~Workshop.participantes.any(id=user_id)
     ).all()
+
+    apresentacoes_disponiveis = Apresentacao.query.filter(
+        Apresentacao.status == 'CONFIRMADA',
+        ~Apresentacao.participantes.any(id=user_id)
+    ).all()
     
     # Atividades já inscritas
     cursos_inscritos = professor.cursos_inscritos
     visitas_inscritas = professor.visitas_inscritas
     workshops_inscritos = professor.workshops_inscritos
+    apresentacoes_inscritas = professor.apresentacoes_inscritas
 
     return render_template(
         'professor/painel.html',
         cursos_disponiveis=cursos_disponiveis,
         visitas_disponiveis=visitas_disponiveis,
         workshops_disponiveis=workshops_disponiveis,
+        apresentacoes_disponiveis=apresentacoes_disponiveis,
         cursos_inscritos=cursos_inscritos,
         visitas_inscritas=visitas_inscritas,
-        workshops_inscritos=workshops_inscritos
+        workshops_inscritos=workshops_inscritos,
+        apresentacoes_inscritas = apresentacoes_inscritas
     )

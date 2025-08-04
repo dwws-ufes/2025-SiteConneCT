@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask import Blueprint, flash, redirect, render_template, request, url_for
-from app.models import SituacaoCurso, StatusEnum, Visita, Curso, Workshop
+from app.models import SituacaoCurso, StatusEnum, Visita, Curso, Workshop, Apresentacao
 from ..auth.decorators import admin_required, login_required
 from .. import db
 
@@ -25,7 +25,7 @@ def list_visitas():
 @admin_bp.route('/visitas/<int:visita_id>/inscritos')
 @login_required
 @admin_required
-def ver_inscritos(visita_id):
+def ver_inscritos_visita(visita_id):
     visita = Visita.query.get_or_404(visita_id)
     participantes = visita.participantes.all()
     return render_template('visitas/inscritos.html', visita=visita, participantes=participantes)
@@ -99,6 +99,94 @@ def delete_visita(id):
         flash(f'Erro ao excluir visita: {str(e)}', 'danger')
     
     return redirect(url_for('admin.list_visitas'))
+
+@admin_bp.route('/apresentacoes')
+@login_required
+@admin_required
+def list_apresentacoes():
+    apresentacoes = Apresentacao.query.all()
+    # Adiciona a contagem de participantes para cada apresentacao
+    for apresentacao in apresentacoes:
+        apresentacao.num_inscritos = len(apresentacao.participantes.all())
+    return render_template('apresentacoes/list.html', apresentacoes=apresentacoes)
+
+@admin_bp.route('/apresentacoes/<int:apresentacao_id>/inscritos')
+@login_required
+@admin_required
+def ver_inscritos_apresentacao(apresentacao_id):
+    apresentacao = Apresentacao.query.get_or_404(apresentacao_id)
+    participantes = apresentacao.participantes.all()
+    return render_template('apresentacoes/inscritos.html', apresentacao=apresentacao, participantes=participantes)
+
+@admin_bp.route('/apresentacoes/new', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def new_apresentacao():
+    if request.method == 'POST':
+        try:
+            apresentacao = Apresentacao(
+                nome=request.form.get('nome'),
+                descricao=request.form.get('descricao'),
+                data=datetime.strptime(request.form.get('data'), '%Y-%m-%d').date(),
+                horario=datetime.strptime(request.form.get('horario'), '%H:%M').time(),
+                link_inscricao=request.form.get('link_inscricao'),
+                vagas_disponiveis=int(request.form.get('vagas_disponiveis')),
+                status=StatusEnum[request.form.get('status').upper()]
+            )
+            
+            db.session.add(apresentacao)
+            db.session.commit()
+            flash('Apresentação criada com sucesso!', 'success')
+            return redirect(url_for('admin.list_apresentacoes'))
+            
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Erro ao criar apresentação: {str(e)}', 'danger')
+    
+    status_options = [status.value for status in StatusEnum]
+    return render_template('apresentacoes/form.html', status_options=status_options)
+
+@admin_bp.route('/apresentacoes/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def edit_apresentacao(id):
+    apresentacao = Apresentacao.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        try:
+            apresentacao.nome = request.form.get('nome')
+            apresentacao.descricao = request.form.get('descricao')
+            apresentacao.data = datetime.strptime(request.form.get('data'), '%Y-%m-%d').date()
+            apresentacao.horario = datetime.strptime(request.form.get('horario'), '%H:%M').time()
+            apresentacao.link_inscricao = request.form.get('link_inscricao')
+            apresentacao.vagas_disponiveis = int(request.form.get('vagas_disponiveis'))
+            apresentacao.status = StatusEnum[request.form.get('status').upper()]
+            
+            db.session.commit()
+            flash('Apresentação atualizada com sucesso!', 'success')
+            return redirect(url_for('admin.list_apresentacoes'))
+            
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Erro ao atualizar apresentação: {str(e)}', 'danger')
+    
+    status_options = [status.value for status in StatusEnum]
+    return render_template('apresentacoes/form.html', apresentacao=apresentacao, status_options=status_options)
+
+@admin_bp.route('/apresentacoes/<int:id>/delete', methods=['POST'])
+@login_required
+@admin_required
+def delete_apresentacao(id):
+    apresentacao = Apresentacao.query.get_or_404(id)
+    try:
+        db.session.delete(apresentacao)
+        db.session.commit()
+        flash('Apresentação excluída com sucesso!', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Erro ao excluir apresentação: {str(e)}', 'danger')
+    
+    return redirect(url_for('admin.list_apresentacoes'))
 
 @admin_bp.route('/cursos')
 @login_required

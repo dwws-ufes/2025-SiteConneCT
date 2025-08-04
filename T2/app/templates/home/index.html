@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}ConneCT{% endblock %}
+{% block title %}ConneCT - Inovação que Transforma{% endblock %}
 {% block content %}
 
-<!-- Menu -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4 shadow-sm">
+<!-- Navbar fixa -->
+<nav class="navbar navbar-expand-lg navbar-light navbar-connect-gray shadow-sm sticky-top">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#">ConneCT</a>
+    <a class="navbar-brand" href="{{ url_for('main.index') }}">
+      <img src="{{ url_for('static', filename='img/logo_connect.png') }}" alt="Logo ConneCT" height="40">
+    </a>    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -18,24 +20,111 @@
         <li class="nav-item"><a class="nav-link" href="{{ url_for('main.desafios') }}">Desafios</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('main.espaco') }}">Espaço ConneCT</a></li>
         {% if not user %}
-        <li class="nav-item"><a class="nav-link btn btn-outline-primary ms-2" href="{{ url_for('auth.login') }}">Login</a></li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-outline-primary ms-2" href="{{ url_for('auth.login') }}">Login</a>
+        </li>
         {% endif %}
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- Cabeçalho -->
-<section class="container text-center mb-5 animate__animated animate__fadeIn">
-  <div class="row justify-content-center">
-    <div class="col-lg-10">
-      <img src="{{ url_for('static', filename='img/banner.png') }}" class="img-fluid rounded shadow-lg mt-3" alt="Banner">
+<!-- Hero Section -->
+<section class="bg-primary text-white text-center py-5 shadow-lg" style="padding-top: 6rem;">
+  <div class="container">
+    <h1 class="display-4 fw-bold">ConneCT UFES</h1>
+    <p class="lead mt-3">Inovação começa quando conectamos ideias, pessoas e desafios reais.</p>
+    <a href="{{ url_for('main.comofunciona') }}" class="btn btn-outline-light btn-lg mt-4">Descubra como funciona</a>
+  </div>
+</section>
+
+<!-- Carrossel de Frases -->
+<section class="bg-white py-5">
+  <div class="container">
+    <div id="impactCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner text-center">
+        <div class="carousel-item active">
+          <h2 class="mb-4">“Desafios reais criam soluções transformadoras.”</h2>
+          <p class="lead">Conectamos empresas a mentes jovens com mentoria de professores.</p>
+        </div>
+        <div class="carousel-item">
+          <h2 class="mb-4">“A inovação nasce da colaboração.”</h2>
+          <p class="lead">Na ConneCT, trabalhamos juntos para resolver os problemas do amanhã.</p>
+        </div>
+        <div class="carousel-item">
+          <h2 class="mb-4">“Sua empresa pode ser a próxima a transformar o mercado com a UFES.”</h2>
+          <p class="lead">Traga seu desafio e receba soluções inovadoras.</p>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#impactCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#impactCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Estudantes e Professores -->
+<section class="py-5 bg-light text-center" data-aos="fade-left">
+  <div class="container">
+    <h2 class="fw-bold mb-4">Desafios que geram aprendizado real</h2>
+    <p class="lead mb-5">
+      Professores e estudantes trabalham juntos em problemas do mundo real, criando soluções com impacto direto na sociedade.
+    </p>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <img src="{{ url_for('static', filename='img/equipe_inovacao.jpg') }}" alt="Equipe Inovação" class="img-fluid rounded shadow">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Empresas -->
+<section class="py-5 bg-white text-center" data-aos="fade-left">
+  <div class="container">
+    <h2 class="fw-bold mb-4 text-primary">Sua empresa enfrenta um desafio?</h2>
+    <p class="lead mb-5">
+      Traga seu problema para dentro da universidade e receba soluções inovadoras criadas por mentes jovens, com mentoria acadêmica e apoio técnico.
+    </p>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <img src="{{ url_for('static', filename='img/empresa_reuniao.jpg') }}" alt="Reunião com empresa" class="img-fluid rounded shadow">
+      </div>
+    </div>
+    <a href="{{ url_for('main.desafios') }}" class="btn btn-primary btn-lg mt-4">Submeta seu desafio</a>
+  </div>
+</section>
+
+<!-- Projetos e Depoimentos -->
+<section class="container py-5">
+  <div class="row g-4">
+    <div class="col-md-6" data-aos="zoom-in">
+      <div class="card shadow-sm h-100 text-center border-0">
+        <div class="card-body">
+          <i class="bi bi-lightbulb display-4 text-primary mb-3"></i>
+          <h5 class="card-title">Projetos em Destaque</h5>
+          <p class="card-text">Conheça os projetos que já transformaram ideias em soluções reais.</p>
+          <a href="{{ url_for('main.projetos') }}" class="stretched-link"></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6" data-aos="zoom-in" data-aos-delay="100">
+      <div class="card shadow-sm h-100 text-center border-0">
+        <div class="card-body">
+          <i class="bi bi-chat-dots display-4 text-primary mb-3"></i>
+          <h5 class="card-title">Depoimentos</h5>
+          <p class="card-text">Veja o que nossos parceiros, professores e alunos dizem sobre o impacto da ConneCT.</p>
+          <a href="{{ url_for('main.depoimentos') }}" class="stretched-link"></a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Rodapé -->
-<footer class="bg-light text-center py-4 mt-5 border-top">
+<footer class="bg-primary text-white text-center py-4 mt-5" data-aos="fade-up">
   <div class="container">
     <h5 class="mb-3">Empresas Parceiras</h5>
     <div class="row justify-content-center mb-3">
@@ -49,7 +138,7 @@
         <img src="{{ url_for('static', filename='img/empresa3.png') }}" alt="Empresa 3" style="height: 50px;">
       </div>
     </div>
-    <p class="text-muted small">Contato: contato@connect.ufes.br | Tel: (27) 4002-8922</p>
+    <p class="text-white small">Contato: contato@connect.ufes.br | Tel: (27) 4002-8922</p>
   </div>
 </footer>
 

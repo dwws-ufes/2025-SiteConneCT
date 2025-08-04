@@ -40,3 +40,15 @@ class Workshop(db.Model):
     local = db.Column(db.String(100), nullable=False)
     vagas_disponiveis = db.Column(db.Integer, nullable=False)
     status = db.Column(PgEnum(SituacaoCurso), nullable=False, default=SituacaoCurso.ABERTO)
+
+class Apresentacao(db.Model):
+    __tablename__ = 'apresentacao'
+
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+    descricao = db.Column(db.Text)
+    data = db.Column(db.Date, nullable=False)
+    horario = db.Column(db.Time, nullable=False)
+    link_inscricao = db.Column(db.String(255), nullable=False)
+    vagas_disponiveis = db.Column(db.Integer, nullable=False)
+    status = db.Column(PgEnum(StatusEnum), nullable=False, default=StatusEnum.CONFIRMADA) 

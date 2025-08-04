@@ -1,7 +1,7 @@
 from app.models.user import User
 from ..util import redirecionar_painel
 from flask import Blueprint, flash, session
-from app.models import SituacaoCurso, StatusEnum, Visita, Curso, Workshop
+from app.models import SituacaoCurso, StatusEnum, Visita, Curso, Workshop, Apresentacao
 from ..auth.decorators import login_required
 from .. import db
 
@@ -135,4 +135,48 @@ def cancelar_inscricao_workshop(workshop_id):
     db.session.commit()
 
     flash('Inscrição no workshop cancelada com sucesso.', 'success')
+    return redirecionar_painel(user)
+
+@user_bp.route('/inscrever/apresentacao/<int:apresentacao_id>', methods=['POST'])
+@login_required
+def inscrever_apresentacao(apresentacao_id):
+    user_id = session['user']['id']
+    user = User.query.get(user_id) 
+    apresentacao = Apresentacao.query.get_or_404(apresentacao_id)
+    
+    if apresentacao.status != StatusEnum.CONFIRMADA:
+        flash('Esta apresentação não está disponível para inscrições.', 'error')
+        return redirecionar_painel(user)
+    
+    if apresentacao in user.apresentacoes_inscritas: 
+        flash('Você já está inscrito nesta apresentação.', 'warning')
+        return redirecionar_painel(user)
+    
+    # Verifica vagas
+    if apresentacao.vagas_disponiveis <= len(apresentacao.participantes.all()):
+        flash('Vagas esgotadas para esta apresentação.', 'error')
+        return redirecionar_painel(user)
+    
+    # Realiza inscrição
+    user.apresentacoes_inscritas.append(apresentacao)
+    db.session.commit()
+    
+    flash('Inscrição na apresentação realizada com sucesso!', 'success')
+    return redirecionar_painel(user)
+
+@user_bp.route('/cancelar/apresentacao/<int:apresentacao_id>', methods=['POST'])
+@login_required
+def cancelar_inscricao_apresentacao(apresentacao_id):
+    user_id = session['user']['id']
+    apresentacao = Apresentacao.query.get_or_404(apresentacao_id)
+    user = User.query.get(user_id)
+    
+    if apresentacao not in user.apresentacao_inscritas:
+        flash('Você não está inscrito nesta apresentação.', 'error')
+        return redirecionar_painel(user)
+    
+    user.apresentacoes_inscritas.remove(apresentacao)
+    db.session.commit()
+    
+    flash('Inscrição na apresentação cancelada com sucesso.', 'success')
     return redirecionar_painel(user)
