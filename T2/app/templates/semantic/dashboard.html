@@ -1,0 +1,73 @@
+<!-- templates/semantic/dashboard.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="semantic-dashboard">
+    <h2>Dashboard de Dados Semânticos</h2>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Consumo de Dados</h4>
+                </div>
+                <div class="card-body">
+                    <h5>Integração com DBpedia</h5>
+                    <p>Obtenha informações enriquecidas sobre os temas das atividades diretamente da DBpedia.</p>
+                    <ul>
+                        <li>Abstracts descritivos</li>
+                        <li>Imagens relacionadas</li>
+                        <li>Links para dados vinculados</li>
+                    </ul>
+                    <a href="{{ url_for('main.activities') }}" class="btn btn-primary">
+                        Explorar Atividades com DBpedia
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Publicação de Dados</h4>
+                </div>
+                <div class="card-body">
+                    <h5>Dados em formato RDF</h5>
+                    <p>Acesse os dados das atividades em formato RDF/Turtle seguindo princípios de Linked Data.</p>
+                    
+                    <div class="list-group">
+                        <a href="{{ url_for('semantic.all_activities_rdf') }}" 
+                           class="list-group-item list-group-item-action" download>
+                            📥 Todas as Atividades (RDF/Turtle)
+                        </a>
+                        
+                        {% if current_user.role == 'ADMIN' %}
+                        <a href="{{ url_for('semantic.user_rdf', user_id=current_user.id) }}" 
+                           class="list-group-item list-group-item-action" download>
+                            📥 Meus Dados (RDF/Turtle)
+                        </a>
+                        {% endif %}
+                    </div>
+                    
+                    <p class="mt-3"><small>Formatos disponíveis: Turtle, RDF/XML, JSON-LD</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mt-4">
+        <div class="card-header">
+            <h4>Princípios de Linked Data Implementados</h4>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>✅ <strong>URIs únicas</strong> para cada recurso (usuários, atividades)</li>
+                <li>✅ <strong>HTTP URLs</strong> que podem ser dereferenciadas</li>
+                <li>✅ <strong>Informações úteis</strong> quando uma URL é acessada</li>
+                <li>✅ <strong>Links para outros dados</strong> (DBpedia)</li>
+                <li>✅ <strong>Uso de vocabulários padrão</strong> (Schema.org, FOAF)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

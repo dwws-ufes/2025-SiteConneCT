@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, session
 
+from app.auth.decorators import login_required
+
 main_bp = Blueprint('main', __name__)
 
 @main_bp.route('/')
@@ -30,3 +32,9 @@ def desafios():
 @main_bp.route('/espaco')
 def espaco():
     return render_template('home/espaco.html')
+
+@main_bp.route('/linked-data')
+@login_required
+def linked_data_dashboard():
+    """Dashboard de Linked Data"""
+    return render_template('linked_data/dashboard.html')

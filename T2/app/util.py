@@ -1,5 +1,6 @@
 from flask import redirect, url_for
 
+
 def redirecionar_painel(user):
     if user.type == 'estudante':
         return redirect(url_for('estudante.painel'))
@@ -7,3 +8,4 @@ def redirecionar_painel(user):
         return redirect(url_for('professor.painel'))
     else:
         return redirect(url_for('main.index'))
+

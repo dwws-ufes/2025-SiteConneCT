@@ -21,7 +21,7 @@ def create_app(config_class='config.Config'):
 
 def register_blueprints(app):
     """Registra todos os blueprints da aplicação"""
-    from app.routes import main_bp, admin_bp, estudante_bp, professor_bp, user_bp
+    from app.routes import main_bp, admin_bp, estudante_bp, professor_bp, user_bp, semantic_bp
     from app.auth import auth_bp
 
     app.register_blueprint(auth_bp, url_prefix='/auth')
@@ -30,3 +30,5 @@ def register_blueprints(app):
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(estudante_bp, url_prefix='/estudante')
     app.register_blueprint(professor_bp, url_prefix='/professor')
+    
+    app.register_blueprint(semantic_bp, url_prefix='/semantic')

@@ -171,7 +171,7 @@ def cancelar_inscricao_apresentacao(apresentacao_id):
     apresentacao = Apresentacao.query.get_or_404(apresentacao_id)
     user = User.query.get(user_id)
     
-    if apresentacao not in user.apresentacao_inscritas:
+    if apresentacao not in user.apresentacoes_inscritas:
         flash('Você não está inscrito nesta apresentação.', 'error')
         return redirecionar_painel(user)
     

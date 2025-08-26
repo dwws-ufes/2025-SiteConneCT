@@ -1,6 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <!-- templates/base.html - Adicionar no head -->
+<script>
+function loadDBpediaInfo(activityType, activityId, elementId) {
+    // Mostra loading em português
+    const element = document.getElementById(elementId);
+    element.innerHTML = `
+        <div class="text-center mt-3">
+            <div class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+            <small>Buscando informações na DBpedia...</small>
+        </div>
+    `;
+    
+    fetch(`/semantic/dbpedia/${activityType}/${activityId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.abstract) {
+                element.innerHTML = `
+                    <div class="dbpedia-info mt-3 p-3 bg-light rounded">
+                        <h6>📚 Informações da DBpedia</h6>
+                        <p>${data.abstract}</p>
+                        ${data.thumbnail ? 
+                            `<img src="${data.thumbnail}" class="img-fluid rounded mt-2" alt="Imagem relacionada" style="max-height: 150px;">` : ''}
+                        <small class="text-muted">Fonte: DBpedia</small>
+                    </div>
+                `;
+            } else {
+                element.innerHTML = `
+                    <div class="alert alert-info mt-3">
+                        <small>Nenhuma informação adicional encontrada na DBpedia para esta atividade.</small>
+                    </div>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            element.innerHTML = `
+                <div class="alert alert-warning mt-3">
+                    <small>Erro ao carregar informações da DBpedia. Tente novamente.</small>
+                </div>
+            `;
+        });
+}
+    </script>
+
+
+
+
+
     <meta charset="UTF-8">
     <title>{% block title %}ConneCT{% endblock %}</title>
 
